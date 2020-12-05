@@ -52,7 +52,7 @@ public class SVMParser extends Parser {
 	public ATN getATN() { return _ATN; }
 
 
-	int[] code = new int[ExecuteVM.CODESIZE];    
+	public int[] code = new int[ExecuteVM.CODESIZE];
 	private int i = 0;
 		
 	private HashMap<String,Integer> labelDef = new HashMap<String,Integer>();

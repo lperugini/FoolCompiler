@@ -103,7 +103,7 @@ public class AST {
 		String id;
 		List<Node> arglist = new ArrayList<Node>();
 		STentry entry;
-		//int nl;
+		int nl;
 		CallNode(String i, List<Node> p) {id = i; arglist = p;}
 
 		@Override
@@ -113,7 +113,7 @@ public class AST {
 	public static class IdNode extends Node {
 		String id;
 		STentry entry;
-		//int nl;
+		int nl;
 		IdNode(String i) {id = i;}
 
 		@Override

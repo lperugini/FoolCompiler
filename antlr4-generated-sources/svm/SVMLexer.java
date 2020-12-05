@@ -43,7 +43,7 @@ public class SVMLexer extends Lexer {
 	};
 
 
-	int lexicalErrors=0;
+	public int lexicalErrors=0;
 
 
 	public SVMLexer(CharStream input) {
