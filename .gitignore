@@ -1,0 +1,7 @@
+*.classpath
+*.project
+*.android_data_binding
+/.idea
+/.settings
+/old
+*.iml
