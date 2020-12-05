@@ -6,3 +6,5 @@
 /old
 /bin
 *.iml
+*.asm
+*.fool
