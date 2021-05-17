@@ -7,5 +7,5 @@ Compiler developed from scratch in Java/Antlr4, for a Fool and simple grammar la
   - type checking
   - code generation. 
   
-  Visitor pattern approach. 
-
+  - Visitor pattern approach. 
+  - Higher Order functions and Object Orientations
