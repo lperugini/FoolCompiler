@@ -8,3 +8,4 @@
 *.iml
 *.asm
 *.fool
+/antlr4-generated-sources
