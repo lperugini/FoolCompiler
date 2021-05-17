@@ -3,7 +3,6 @@ Compiler developed from scratch in Java/Antlr4, for a Fool and simple grammar la
   - lexical and syntactical analysis  
   - type checking
   - code generation. 
-  - more to come...
   
   Visitor pattern approach. 
 
