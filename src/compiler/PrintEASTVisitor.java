@@ -36,14 +36,14 @@ public class PrintEASTVisitor extends BaseEASTVisitor<Void,VoidException> {
 	@Override
 	public Void visitNode(ParNode n) {
 		printNode(n,n.id);
-		visit(n.type);
+		visit(n.getType());
 		return null;
 	}
 
 	@Override
 	public Void visitNode(VarNode n) {
 		printNode(n,n.id);
-		visit(n.type);
+		visit(n.getType());
 		visit(n.exp);
 		return null;
 	}
@@ -142,6 +142,121 @@ public class PrintEASTVisitor extends BaseEASTVisitor<Void,VoidException> {
 		visit(entry.type);
 		printSTentry("offset "+entry.offset);
 		return null;
+	}
+	
+	@Override
+	public Void visitNode(DivNode n) {
+		printNode(n);
+		visit(n.left);
+		visit(n.right);
+		return null;
+	}
+
+	@Override
+	public Void visitNode(MinusNode n) {
+		printNode(n);
+		visit(n.left);
+		visit(n.right);
+		return null;
+	}
+
+	@Override
+	public Void visitNode(GreaterEqualNode n) {
+		printNode(n);
+		visit(n.left);
+		visit(n.right);
+		return null;
+	}
+
+	@Override
+	public Void visitNode(LessEqualNode n) {
+		printNode(n);
+		visit(n.left);
+		visit(n.right);
+		return null;
+	}
+
+	@Override
+	public Void visitNode(OrNode n) {
+		printNode(n);
+		visit(n.left);
+		visit(n.right);
+		return null;
+	}
+
+	@Override
+	public Void visitNode(AndNode n) {
+		printNode(n);
+		visit(n.left);
+		visit(n.right);
+		return null;
+	}
+
+	@Override
+	public Void visitNode(NotNode n) {
+		printNode(n);
+		visit(n.val);
+		return null;
+	}
+	
+	public Void visitNode(ClassNode n) {
+		printNode(n);
+		for(Node node : n.fields) visit(node);
+		for(Node node : n.methods) visit(node);
+		return null;
+	}
+	public Void visitNode(FieldNode n) {
+		printNode(n);
+		return null;
+
+	}
+	public Void visitNode(MethodNode n) {
+		printNode(n);
+		for(Node node : n.parlist) visit(node);
+		for(Node node : n.declist) visit(node);
+		return null;
+
+	}
+	public Void visitNode(ClassCallNode n) {
+		printNode(n);
+		for(Node node: n.arglist) visit(node);
+		return null;
+
+	}
+	public Void visitNode(NewNode n) {
+		printNode(n);
+		for(Node node: n.arglist) visit(node);
+		return null;
+
+	}
+	public Void visitNode(EmptyNode n) 
+	{
+		printNode(n);
+		return null;
+	}
+	
+	public Void visitNode(ClassTypeNode n) {
+		printNode(n);
+		for(Node node: n.allFields) visit(node);
+		for(Node node: n.allFields) visit(node);
+		return null;
+
+	}
+	public Void visitNode(MethodTypeNode n) {
+		printNode(n);
+		printNode(n.fun);
+		return null;
+
+	}
+	public Void visitNode(RefTypeNode n) {
+		printNode(n);
+		return null;
+
+	}
+	public Void visitNode(EmptyTypeNode n) {
+		printNode(n);
+		return null;
+
 	}
 
 }

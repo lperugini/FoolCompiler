@@ -1,7 +1,5 @@
 package compiler.lib;
 
-import compiler.AST.*;
-
 public class FOOLlib {
 
 	public static String extractNodeName(String s) { // s is in the form compiler.AST$NameNode
@@ -17,11 +15,6 @@ public class FOOLlib {
     }
     
 	public static int typeErrors = 0;
-
-	// valuta se il tipo "a" e' <= al tipo "b", dove "a" e "b" sono tipi di base: IntTypeNode o BoolTypeNode
-	public static boolean isSubtype(TypeNode a, TypeNode b) {
-		return a.getClass().equals(b.getClass()) || ((a instanceof BoolTypeNode) && (b instanceof IntTypeNode));
-	}
 
 	// crea un'unica stringa a partire da un insieme di stringhe concatenadole e 
 	// introducendo, all'interno, dei newline "\n" come separatore tra le stringhe
@@ -39,6 +32,7 @@ public class FOOLlib {
 	}
 
 	private static int funlabCount = 0;
+	private static int methCount = 0;
 
 	public static String freshFunLabel() {
 		return "function"+(funlabCount++);

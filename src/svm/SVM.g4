@@ -10,9 +10,9 @@ public int lexicalErrors=0;
    
 @parser::members { 
 public int[] code = new int[ExecuteVM.CODESIZE];    
-    private int i = 0;
-    private Map<String,Integer> labelDef = new HashMap<>();
-    private Map<Integer,String> labelRef = new HashMap<>();
+private int i = 0;
+private Map<String,Integer> labelDef = new HashMap<>();
+private Map<Integer,String> labelRef = new HashMap<>();
 }
 
 /*------------------------------------------------------------------
@@ -22,7 +22,6 @@ public int[] code = new int[ExecuteVM.CODESIZE];
 assembly: instruction* EOF 	{ for (Integer j: labelRef.keySet()) 
 								code[j]=labelDef.get(labelRef.get(j)); 
 							} ;
-
 instruction : 
         PUSH n=INTEGER   {code[i++] = PUSH; 
 			              code[i++] = Integer.parseInt($n.text);}
@@ -87,6 +86,8 @@ HALT	 : 'halt' ;
 COL	 : ':' ;
 LABEL	 : ('a'..'z'|'A'..'Z')('a'..'z' | 'A'..'Z' | '0'..'9')* ;
 INTEGER	 : '0' | ('-')?(('1'..'9')('0'..'9')*) ;
+
+COMMENT : '/*' .*? '*/' -> channel(HIDDEN) ;
 
 WHITESP  : (' '|'\t'|'\n'|'\r')+ -> channel(HIDDEN) ;
 

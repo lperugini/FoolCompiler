@@ -10,7 +10,7 @@ import svm.*;
 public class Test {
     public static void main(String[] args) throws Exception {
    			
-    	String fileName = "prova.fool";
+    	String fileName = "provamia2.fool";
 
     	CharStream chars = CharStreams.fromFileName(fileName);
     	FOOLLexer lexer = new FOOLLexer(chars);
@@ -23,12 +23,12 @@ public class Test {
     		parser.getNumberOfSyntaxErrors()+" syntax errors.\n");
 
     	System.out.println("Generating AST.");
-    	ASTGenerationSTVisitor visitor = new ASTGenerationSTVisitor(); // use true to visualize the ST
+    	ASTGenerationSTVisitor visitor = new ASTGenerationSTVisitor(true); // use true to visualize the ST
     	Node ast = visitor.visit(st);
     	System.out.println("");
 
     	System.out.println("Enriching AST via symbol table.");
-    	SymbolTableASTVisitor symtableVisitor = new SymbolTableASTVisitor();
+    	SymbolTableASTVisitor symtableVisitor = new SymbolTableASTVisitor(true);
     	symtableVisitor.visit(ast);
     	System.out.println("You had "+symtableVisitor.stErrors+" symbol table errors.\n");
 
@@ -38,7 +38,7 @@ public class Test {
 
     	System.out.println("Checking Types.");
     	try {
-    		TypeCheckEASTVisitor typeCheckVisitor = new TypeCheckEASTVisitor();
+    		TypeCheckEASTVisitor typeCheckVisitor = new TypeCheckEASTVisitor(true);
     		TypeNode mainType = typeCheckVisitor.visit(ast);
     		System.out.print("Type of main program expression is: ");
     		new PrintEASTVisitor().visit(mainType);
@@ -55,28 +55,28 @@ public class Test {
 		if ( frontEndErrors > 0) System.exit(1);   
 
     	System.out.println("Generating code.");
-    	String code = new CodeGenerationASTVisitor().visit(ast);
-    	BufferedWriter out = new BufferedWriter(new FileWriter(fileName+".asm"));
+    	String code = new CodeGenerationASTVisitor(true).visit(ast);        
+    	BufferedWriter out = new BufferedWriter(new FileWriter(fileName+".asm")); 
     	out.write(code);
-    	out.close();
+    	out.close(); 
     	System.out.println("");
-//
-//    	System.out.println("Assembling generated code.");
-//    	CharStream charsASM = CharStreams.fromFileName(fileName+".asm");
-//    	SVMLexer lexerASM = new SVMLexer(charsASM);
-//    	CommonTokenStream tokensASM = new CommonTokenStream(lexerASM);
-//    	SVMParser parserASM = new SVMParser(tokensASM);
-//
-//    	parserASM.assembly();
-//
-//    	// needed only for debug
-//    	System.out.println("You had: "+lexerASM.lexicalErrors+" lexical errors and "+parserASM.getNumberOfSyntaxErrors()+" syntax errors.\n");
-//    	if (lexerASM.lexicalErrors+parserASM.getNumberOfSyntaxErrors()>0) System.exit(1);
-//
-//    	System.out.println("Running generated code via Stack Virtual Machine.");
-//    	ExecuteVM vm = new ExecuteVM(parserASM.code);
-//    	vm.cpu();
 
+    	System.out.println("Assembling generated code.");
+    	CharStream charsASM = CharStreams.fromFileName(fileName+".asm");
+    	SVMLexer lexerASM = new SVMLexer(charsASM);
+    	CommonTokenStream tokensASM = new CommonTokenStream(lexerASM);
+    	SVMParser parserASM = new SVMParser(tokensASM);
+
+    	parserASM.assembly();
+
+    	// needed only for debug
+    	System.out.println("You had: "+lexerASM.lexicalErrors+" lexical errors and "+parserASM.getNumberOfSyntaxErrors()+" syntax errors.\n");
+    	if (lexerASM.lexicalErrors+parserASM.getNumberOfSyntaxErrors()>0) System.exit(1);
+
+    	System.out.println("Running generated code via Stack Virtual Machine.");
+    	ExecuteVM vm = new ExecuteVM(parserASM.code);
+    	vm.cpu();
+    	System.out.println("END");
     }
 }
 
